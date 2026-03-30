@@ -1,4 +1,20 @@
-Flask
-pandas
-scikit-learn
-gunicorn
+# สำหรับ Streamlit
+streamlit==1.26.0
+
+# การจัดการข้อมูล
+pandas==3.0.1
+numpy==2.4.4
+
+# Machine Learning
+scikit-learn==1.8.0
+joblib==1.5.3
+
+# Deep Learning
+tensorflow==2.16.0
+
+# Visualization
+matplotlib==3.8.0
+seaborn==0.12.2
+
+# สำหรับอ่าน/เขียนไฟล์
+pickle5==0.0.12  # แนะนำถ้าใช้ pickle รุ่นใหม่
