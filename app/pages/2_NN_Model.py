@@ -3,17 +3,24 @@ import pickle
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-
 st.title("🧠 Neural Network Prediction")
 
-model = load_model("models/nn_model.h5")
+@st.cache_resource
+def load_nn_model():
+    try:
+        return load_model("models/nn_model.keras", compile=False)
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
+
+model = load_nn_model()
 
 with open("models/tokenizer.pkl", "rb") as f:
     tokenizer = pickle.load(f)
 
 text = st.text_area("📝 Enter news text")
 
-if st.button("🔍 Predict NN"):
+if model is not None and st.button("🔍 Predict NN"):
     if text.strip() == "":
         st.warning("Please enter text")
     else:
