@@ -1,5 +1,10 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="Fake News Detector",
+    layout="centered"
+)
+
 def load_css():
     with open("app/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -25,7 +30,6 @@ st.sidebar.title("🚀 Navigation")
 st.sidebar.info("Fake News Detection System")
 
 
-st.set_page_config(page_title="Fake News Detector", layout="centered")
 
 st.title("📰 Fake News Detection System")
 
