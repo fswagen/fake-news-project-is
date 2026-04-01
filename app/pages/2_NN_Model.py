@@ -1,15 +1,20 @@
 import streamlit as st
-import pickle
 import os
+import json
+
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import tokenizer_from_json
 
 st.title("🧠 Neural Network Prediction")
 
-# path กลาง (กัน path error)
+# path
 MODEL_PATH = "models/nn_model.keras"
-TOKENIZER_PATH = "models/tokenizer.pkl"
+TOKENIZER_PATH = "models/tokenizer.json"
 
+# =========================
+# LOAD MODEL
+# =========================
 @st.cache_resource
 def load_nn_model():
     try:
@@ -23,18 +28,24 @@ def load_nn_model():
 
 model = load_nn_model()
 
-# โหลด tokenizer แบบกันพัง
+# =========================
+# LOAD TOKENIZER (แก้ตรงนี้สำคัญมาก)
+# =========================
 try:
     if not os.path.exists(TOKENIZER_PATH):
         st.error("❌ Tokenizer file not found")
         tokenizer = None
     else:
-        with open(TOKENIZER_PATH, "rb") as f:
-            tokenizer = pickle.load(f)
+        with open(TOKENIZER_PATH) as f:
+            data = json.load(f)
+            tokenizer = tokenizer_from_json(data)
 except Exception as e:
     st.error(f"❌ Error loading tokenizer: {e}")
     tokenizer = None
 
+# =========================
+# INPUT
+# =========================
 text = st.text_area("📝 Enter news text")
 
 if model is not None and tokenizer is not None and st.button("🔍 Predict NN"):

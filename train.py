@@ -6,7 +6,6 @@ print("🚀 Start training...")
 import pandas as pd
 import re
 import joblib
-import pickle
 import os
 import json
 
@@ -113,20 +112,27 @@ model_nn.compile(
 print("Training NN model...")
 model_nn.fit(X_train_pad, y_train, epochs=3)
 
-# ✅ Evaluate NN (สำคัญมาก)
+# Evaluate NN
 loss, nn_acc = model_nn.evaluate(X_test_pad, y_test)
 print("NN Accuracy:", nn_acc)
 
-# Save NN model
-model_nn.save("models/nn_model.h5")
+# =========================
+# 🔥 FIX ตรงนี้ (สำคัญมาก)
+# =========================
 
-with open("models/tokenizer.pkl", "wb") as f:
-    pickle.dump(tokenizer, f)
+# ✅ Save model (ใช้ format ใหม่)
+model_nn.save("models/nn_model.keras")
+
+# ✅ Save tokenizer แบบ JSON (กันพังข้ามเวอร์ชัน)
+tokenizer_json = tokenizer.to_json()
+
+with open("models/tokenizer.json", "w") as f:
+    f.write(tokenizer_json)
 
 print("NN model saved!")
 
 # =========================
-# 8. SAVE METRICS (ต้องอยู่ท้ายสุด)
+# 8. SAVE METRICS
 # =========================
 with open("results/metrics.json", "w") as f:
     json.dump({
@@ -136,5 +142,4 @@ with open("results/metrics.json", "w") as f:
     }, f)
 
 print("📊 Metrics saved!")
-
 print("✅ Training completed successfully!")
