@@ -1,3 +1,4 @@
-!models/
-!models/*.keras
-!models/*.json
+__pycache__/
+*.pyc
+.env
+venv/
