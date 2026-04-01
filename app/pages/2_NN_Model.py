@@ -8,12 +8,11 @@ from tensorflow.keras.preprocessing.text import tokenizer_from_json
 
 st.title("🧠 Neural Network Prediction")
 
-# path
 MODEL_PATH = "models/nn_model.keras"
 TOKENIZER_PATH = "models/tokenizer.json"
 
 # =========================
-# LOAD MODEL
+# โหลด MODEL
 # =========================
 @st.cache_resource
 def load_nn_model():
@@ -29,7 +28,7 @@ def load_nn_model():
 model = load_nn_model()
 
 # =========================
-# LOAD TOKENIZER (แก้ตรงนี้สำคัญมาก)
+# โหลด TOKENIZER (JSON)
 # =========================
 try:
     if not os.path.exists(TOKENIZER_PATH):
@@ -44,7 +43,7 @@ except Exception as e:
     tokenizer = None
 
 # =========================
-# INPUT
+# UI
 # =========================
 text = st.text_area("📝 Enter news text")
 
