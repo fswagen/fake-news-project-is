@@ -4,8 +4,4 @@ numpy
 scikit-learn
 joblib
 tensorflow==2.16.1
-matplotlib==3.7.2
-seaborn==0.12.2
-keras==2.16.0
-rich==13.3.5
-setuptools
+rich
