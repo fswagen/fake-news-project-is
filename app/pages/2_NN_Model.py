@@ -36,7 +36,7 @@ try:
         tokenizer = None
     else:
         with open(TOKENIZER_PATH) as f:
-            data = json.load(f)
+            data = f.read()
             tokenizer = tokenizer_from_json(data)
 except Exception as e:
     st.error(f"❌ Error loading tokenizer: {e}")
